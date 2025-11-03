@@ -1,0 +1,1242 @@
+/*
+filename: [RootFlowers Style] 
+author: [Ivan Liang Jin Ngu]
+created: [8/09/2025]
+last modified: 10/10/2025]
+description: [Styles for every single php files]
+*/
+
+:root {
+    --bs-primary: #ff6b87;   /* sakura pink */
+    --bs-secondary: #f8bbd0; /* pastel pink */
+    --bs-dark: #2c2c2c;      /* text */
+    --bs-light: #fff3e0;     /* peachy cream */
+}
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.bg-light {
+    background-color: #fff3e0 !important; /* peachy cream */
+}
+
+.bg-sakura-gradient {
+  background: linear-gradient(135deg, #f8bbd0, #f48fb1);
+  color: white;
+}
+
+body .navbar-brand, .btn{
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #fffaf5; /* A lighter version of peachy cream */
+    color: var(--bs-dark);
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', serif;
+    color: var(--bs-dark);
+}
+
+/* --- EXPLICIT THEME COLOR OVERRIDES --- */
+.text-primary {
+    color: var(--bs-primary) !important;
+}
+
+.btn-primary {
+    background-color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #e65f79; /* A slightly darker sakura pink */
+    border-color: #e65f79;
+    color: #fff;
+}
+
+.btn-outline-primary {
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:active,
+.btn-outline-primary:focus {
+    background-color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+    color: #fff !important;
+    box-shadow: none !important;
+}
+
+.navbar-brand.brand-logo-text {
+    font-family: 'Great Vibes', cursive !important;
+    font-size: 1.5rem;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* space between logo and text */
+}
+
+.navbar-logo {
+    height: 60px;      /* taller so it’s visible */
+    width: auto;       /* auto width to keep proportions */
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+
+.navbar {
+    background-color: rgba(255, 107, 135, 0.75) !important; /* Slightly more transparent */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-size: 1.05rem; /* Slightly smaller font for a cleaner look */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    transition: color 0.3s ease, transform 0.3s ease;
+    padding: 0.5rem 1rem;
+    position: relative;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Style for the active page link */
+.nav-link.active {
+    color: #fff;
+    font-weight: 700;
+}
+
+/* Underline effect for active and hovered links */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: var(--bs-light); /* peachy cream */
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 60%;
+}
+
+/* Disabled link styling */
+.nav-link.disabled {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Modern Pill Button Style */
+.navbar .btn-light.rounded-pill {
+    background-color: var(--bs-light); /* peachy cream */
+    color: var(--bs-primary); /* sakura pink text */
+    font-weight: 600;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar .btn-light.rounded-pill:hover {
+    background-color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.hero {
+    height: 100vh;
+    background: url("../images/hero.gif") no-repeat center center/cover;
+    position: relative;
+}
+
+.index-page .hero h1 {
+    color: white;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4); /* dark tint */
+    z-index: 0;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1; /* sit above overlay */
+}
+
+
+.section-title {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 60%;
+    height: 3px;
+    background-color: #e91e63; /* sakura pink */
+    border-radius: 2px;
+}
+
+/* --- INDEX PAGE - INFINITE SCROLLING PRODUCT CAROUSEL --- */
+.product-carousel-wrapper {
+    overflow: hidden;
+    position: relative;
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.product-carousel-track {
+    display: flex;
+    width: calc(350px * 16); 
+    animation: scroll 60s linear infinite;
+}
+
+@keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.product-carousel-wrapper:hover .product-carousel-track {
+    animation-play-state: paused;
+}
+
+.carousel-product-card {
+    width: 330px;
+    margin: 0 10px;
+    flex-shrink: 0;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #eee;
+}
+
+.carousel-product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.carousel-product-card .card-img-container {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.carousel-product-card .card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.carousel-product-card:hover .card-img-top {
+    transform: scale(1.1);
+}
+
+.carousel-product-card .card-body {
+    padding: 1rem;
+}
+
+.carousel-product-card .card-title {
+    font-family: 'Merriweather', serif;
+    font-size: 1.15rem;
+    color: var(--bs-dark);
+    margin-bottom: 0.5rem;
+}
+
+/* Custom Social Button Colors */
+.btn-instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+    border: none;
+    color: white;
+}
+
+.btn-instagram:hover {
+    opacity: 0.9;
+    color: white;
+}
+
+.btn-facebook {
+    background-color: #1877F2;
+    border-color: #1877F2;
+    color: white;
+}
+
+.btn-facebook:hover {
+    background-color: #166fe5; /* Slightly darker blue on hover */
+    border-color: #166fe5;
+    color: white;
+}
+
+.btn-whatsapp {
+    background-color: #25D366;
+    border-color: #25D366;
+    color: white;
+}
+
+.btn-whatsapp:hover {
+    background-color: #1ebe5a; /* Slightly darker green on hover */
+    border-color: #1ebe5a;
+    color: white;
+}
+
+.map-responsive {
+    overflow: hidden;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    position: relative;
+    height: 0;
+}
+
+.map-responsive iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border: 0;
+}
+
+/* ===== Assignment Links Section ===== */
+.assignment-links-section {
+    background-color: #fff;
+    border-top: 1px solid #eee;
+}
+
+.assignment-links-section .section-title {
+    color: var(--bs-dark);
+}
+
+.assignment-links-section .btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+footer {
+    background-color: rgba(44, 44, 44, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    color: white;
+    padding: 40px 0;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+    text-align: left;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 220px;
+    margin: 10px;
+}
+
+.footer-section h6 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #ffe4ec;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+    color: #ffe4ec;
+}
+
+footer p {
+    margin: 0.3rem 0;
+}
+
+/* ===== Register Page Styling ===== */
+
+/* Keyframes for fade-in animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reg-body {
+    background: linear-gradient(135deg, #f8bbd0, #f48fb1, #f06292);
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 75px;
+}
+
+/* Center content area */
+.reg-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 15px;
+}
+
+/* Dark frosted glass effect for readability */
+.register-card {
+    background: rgba(10, 10, 10, 0.45); /* Darker, more opaque background for contrast */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    max-width: 100%;
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+/* All text inside the card is now light for high contrast */
+.register-card h2 {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+}
+
+.register-card .form-label {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9); /* Bright label text */
+}
+
+/* Dark, modern input field styles */
+.register-card .form-control,
+.register-card .form-select {
+    background-color: rgba(0, 0, 0, 0.25); /* Darker inputs */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border */
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: #fff;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.register-card .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.register-card .form-control:focus,
+.register-card .form-select:focus {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-color: #ff6b87; /* Highlight with theme color on focus */
+    box-shadow: none;
+    color: #fff;
+}
+
+.register-card .form-select option {
+    background: #2c2c2c;
+    color: #fff;
+}
+
+/* Error messages */
+.register-card .invalid-feedback {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #fff !important;
+    background: rgba(216, 27, 96, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+.form-control.is-invalid {
+    border-color: #d81b60;
+}
+
+/* Button styles */
+.register-card .btn-primary {
+    background: #ec407a;
+    border: none;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.register-card .btn-primary:hover {
+    background: #d81b60;
+    transform: translateY(-2px);
+}
+
+/* Link styles */
+.register-card a {
+    color: #f8bbd0; /* Lighter pink for links */
+    font-weight: 500;
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+
+.register-card a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Info column has white text with a strong shadow for readability */
+.register-info {
+    color: #fff;
+    animation: fadeInUp 0.8s ease-out forwards;
+    padding: 2rem;
+}
+
+.register-info h1 {
+    font-family: 'Merriweather', serif;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* Stronger shadow */
+}
+
+.register-info p {
+    font-size: 1.1rem;
+    font-weight: 400;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5); /* Stronger shadow */
+}
+
+.text-white-75 { 
+    color: rgba(255, 255, 255, 0.9) !important; 
+}
+
+.register-info-logo {
+    max-width: 100px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.password-wrapper {
+  position: relative; /* This is crucial for positioning the icon */
+}
+
+.toggle-password-icon {
+  position: absolute;
+  /* Position it vertically centered and on the right */
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  
+  /* Style the icon for better UX */
+  cursor: pointer;
+  color: #6c757d; /* A neutral gray color */
+  transition: color 0.2s ease-in-out;
+}
+
+.toggle-password-icon:hover {
+  color: #fff; /* Or any brighter color that fits theme */
+}
+
+.password-wrapper .form-control {
+  padding-right: 45px; /* Make space for the icon */
+}
+
+#password-strength-container {
+    height: 5px; /* Ensures consistent bar height */
+    overflow: hidden; /* Keeps the progress bar within its container */
+    border-radius: 0.25rem; /* Matches Bootstrap's standard rounded corners */
+    background-color: #e9ecef; /* Light background for the track */
+}
+
+#password-strength {
+    position: relative;
+}
+
+#password-strength-text {
+    color: #fff;
+}
+
+/* ===== Success Pill on Login Page ===== */
+.success-pill {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: rgba(25, 135, 84, 0.6); /* Semi-transparent success green */
+    color: #fff;
+    border-radius: 50px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.main-menu-page .hero {
+    height: auto;
+    min-height: 100vh;
+    padding: 5rem 1rem;
+    background-attachment: fixed;
+}
+
+.main-menu-page .hero::before {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.main-menu-page .hero-content h1,
+.main-menu-page .hero-content .lead {
+    color: #fff;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+}
+
+.main-menu-page .card {
+    background-color: var(--bs-light); /* Use 'peachy cream' for the card background */
+    border: 1px solid #fff; /* Add a subtle border */
+    border-radius: 15px; /* Softer rounded corners */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: var(--bs-dark);
+}
+
+.main-menu-page .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.main-menu-page .card .card-title {
+    font-weight: 600;
+}
+
+.product-page {
+    /* Fallback background color */
+    background-color: #fffaf5;
+    
+    /* A subtle, repeating floral pattern using an embedded SVG */
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f8bbd0' fill-opacity='0.15' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+
+    padding-top: 75px;
+}
+
+.product-page h1{
+    color: #fff;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    border-bottom: 3px solid var(--bs-secondary); /* Pastel pink underline */
+    padding-bottom: 10px;
+    margin-bottom: 2rem;
+}
+
+.section-title::after {
+    display: none;
+}
+
+.product-card {
+    background-color: var(--bs-light);
+    border: 1px solid #eee;
+    border-top: 4px solid var(--bs-secondary); /* Pastel pink top border */
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    border-color: var(--bs-primary); /* Border turns sakura pink on hover */
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.product-card .card-img-top {
+    aspect-ratio: 4 / 3; /* Ensures all images are the same size */
+    object-fit: cover;
+}
+
+.page-header {
+    position: relative;
+}
+
+/* 2. This stretches the overlay to perfectly fit the frame */
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0; /* Stretches to the bottom */
+    left: 0;
+    right: 0;  /* Stretches to the right */
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+
+.page-header .hero-content h1,
+.page-header .hero-content p {
+    position: relative; /* Ensures text is on top of the overlay */
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+
+.view-more-chevron:hover i {
+    transform: scaleX(3); /* Slightly wider on hover */
+}
+
+/* This rule targets the button when the content is expanded */
+.view-more-chevron[aria-expanded="true"] i {
+    transform: scaleX(2.5) rotate(180deg); /* Flips the arrow up */
+}
+
+.view-more-chevron[aria-expanded="true"]:hover i {
+    transform: scaleX(3) rotate(180deg);
+}
+
+@media (max-width: 991.98px) {
+    .register-info {
+        padding: 2rem 1.5rem;
+        background: rgba(0, 0, 0, 0.2); /* On mobile, add a dark overlay to ensure readability */
+        border-radius: 15px;
+    }
+}
+
+/* --- WORKSHOP PAGE STYLES --- */
+.workshop-page {
+    padding-top: 75px;
+}
+
+.workshop-page h1 {
+    color: #fff;
+}
+
+.workshop-main-flyer {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+
+.workshop-page body, body.workshop-page {
+    background-color: #fffaf5;
+    background-image: repeating-linear-gradient(
+        -45deg,
+        #fff,
+        #fff 20px,
+        rgba(248, 187, 208, 0.15) 20px,
+        rgba(248, 187, 208, 0.15) 40px
+    );
+}
+
+.workshop-content-box {
+    background-color: #fff;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+.workshop-accordion .accordion-item {
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 10px !important;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.workshop-accordion .accordion-button {
+    background-color: #fff;
+    color: var(--bs-dark);
+    font-weight: 600;
+    font-family: 'Merriweather', serif;
+    font-size: 1.2rem;
+    padding: 1rem 1.5rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: none !important;
+}
+
+.workshop-accordion .accordion-button:hover {
+    background-color: #f8f9fa;
+}
+
+.workshop-accordion .accordion-button:not(.collapsed) {
+    background-color: var(--bs-primary);
+    color: #fff;
+}
+
+.workshop-accordion .accordion-button:not(.collapsed)::after {
+    filter: brightness(0) invert(1);
+}
+
+.workshop-accordion .accordion-body {
+    background-color: var(--bs-light);
+    font-size: 1rem;
+    padding: 1.5rem;
+}
+
+.workshop-accordion .accordion-body img {
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.workshop-accordion .workshop-details {
+    margin-top: 1rem;
+    padding-left: 0;
+}
+
+.workshop-accordion .workshop-details li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.workshop-accordion .workshop-details i {
+    color: var(--bs-primary);
+    margin-right: 0.75rem;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+}
+
+.studentworks-page {
+    padding-top: 75px;
+    background-color: #fffaf5;
+    background-image: repeating-linear-gradient(
+        -45deg,
+        #fff,
+        #fff 20px,
+        rgba(248, 187, 208, 0.15) 20px,
+        rgba(248, 187, 208, 0.15) 40px
+    );
+}
+
+.studentworks-page h1 {
+    color: #fff;
+}
+
+
+/* --- STUDENT WORKS GALLERY --- */
+.gallery-card {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-decoration: none;
+}
+.gallery-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.gallery-card:hover img {
+    transform: scale(1.1);
+}
+.gallery-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    padding: 2.5rem 1.5rem 1.5rem;
+    color: #fff;
+    transition: opacity 0.4s ease;
+}
+.gallery-card:hover .gallery-card-overlay {
+    opacity: 1; /* Overlay appears on hover */
+}
+.gallery-card-title {
+    font-weight: 700;
+    color: #fff;
+}
+.gallery-card-text {
+    color: rgba(255,255,255,0.8);
+}
+
+/* ===== STUDENT WORK DETAILS PAGE ENHANCEMENTS ===== */
+.studentwork-details-page {
+    padding-top: 75px;
+    background-color: #fffaf5;
+    background-image: repeating-linear-gradient(
+        -45deg,
+        #fff,
+        #fff 20px,
+        rgba(248, 187, 208, 0.15) 20px,
+        rgba(248, 187, 208, 0.15) 40px
+    );
+}
+
+.studentwork-details-page .details-content-box {
+    background-color: #fff;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    animation: fadeInUp 0.8s ease-out forwards; /* Reuse cool animation */
+    border-top: 5px solid var(--bs-primary);
+}
+
+/* Fix the heading color to match theme */
+.studentwork-details-page h1 {
+   color: var(--bs-dark);
+}
+
+/* Make the image fill its column and add a thematic border */
+.studentwork-details-page .student_img {
+    width: 80%;
+    border: 4px solid var(--bs-secondary); /* pastel pink border */
+}
+
+/* Style the workshop name as a decorative badge */
+.studentwork-details-page .workshop-badge {
+    display: inline-block;
+    padding: 0.4em 0.8em;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background-color: var(--bs-light); /* peachy cream */
+    color: var(--bs-primary); /* sakura pink */
+    border-radius: 50px;
+}
+
+/* Style the description as an elegant blockquote */
+.studentwork-details-page .student-description {
+    border-left: 4px solid var(--bs-primary); /* sakura pink */
+    padding-left: 1.5rem;
+    font-style: italic;
+    color: #555;
+}
+
+/* ===== User Profile ===== */
+#profile_body {
+    padding-top: 75px;
+    background-color: #fffaf5;
+    background-image: repeating-linear-gradient(
+        -45deg,
+        #fff,
+        #fff 20px,
+        rgba(248, 187, 208, 0.15) 20px,
+        rgba(248, 187, 208, 0.15) 40px
+    );
+}
+
+.profile-card {
+  background-color: var(--bs-light);
+  border-top: 5px solid var(--bs-primary);
+}
+
+.profile_name {
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  color: var(--bs-dark);
+}
+
+.profile_id {
+    font-family: 'Poppins', 'sans-serif';
+}
+
+.profile-image {
+  max-width: 200px;
+  height: 200px;
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  border-radius: 50%; /* Circular shape */
+  border: 8px solid var(--bs-secondary); /* Themed pastel pink border */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-image:hover {
+  transform: scale(1.05) rotate(2deg); /* Slight zoom and tilt effect on hover */
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+}
+
+.profile-card .blockquote {
+  border-left: 5px solid var(--bs-primary);
+  text-align: left;
+  font-size: 1rem;
+  font-style: italic;
+  color: #555;
+}
+
+/* ===== UPDATE PROFILE PAGE ===== */
+.update-profile-page {
+    padding-top: 75px;
+    background-color: #fffaf5;
+    background-image: repeating-linear-gradient(
+        -45deg,
+        #fff,
+        #fff 20px,
+        rgba(248, 187, 208, 0.15) 20px,
+        rgba(248, 187, 208, 0.15) 40px
+    );
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.update-profile-card {
+    background-color: #fff;
+    border-top: 5px solid var(--bs-primary);
+    max-width: 900px; /* Controls the max width of the card */
+}
+
+.update-profile-page .form-control,
+.update-profile-page .form-select {
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ddd;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.update-profile-page .form-control:focus,
+.update-profile-page .form-select:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(255, 107, 135, 0.25);
+}
+
+.update-profile-page .btn-secondary {
+    background-color: #ccc;
+    border-color: #ccc;
+    color: #333;
+}
+
+.update-profile-page .btn-secondary:hover {
+    background-color: #bbb;
+    border-color: #bbb;
+}
+.gallery-card-text {
+    color: rgba(255,255,255,0.8);
+}
+
+/* ===== UPDATE PROFILE PAGE STYLES ===== */
+.update-profile-page {
+    padding-top: 75px;
+    background-color: #fffaf5; /* Light peachy background */
+    /* Adds the subtle repeating background pattern */
+    background-image: repeating-linear-gradient(
+        -45deg,
+        #fff,
+        #fff 20px,
+        rgba(248, 187, 208, 0.15) 20px,
+        rgba(248, 187, 208, 0.15) 40px
+    );
+}
+
+.update-profile-card {
+    background-color: var(--bs-light);
+    border-top: 5px solid var(--bs-primary); /* Sakura pink top accent */
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.update-profile-card .profile_name {
+    font-family: 'Merriweather', serif;
+    color: var(--bs-dark);
+}
+
+.update-profile-card .profile_id {
+    font-family: 'Poppins', 'sans-serif';
+}
+
+.update-profile-card .profile-image {
+  width: 180px;  /* Slightly smaller for better balance */
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 6px solid var(--bs-secondary); /* Pastel pink border */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.update-profile-card .profile-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* Themed Form Styles */
+.update-profile-card .form-control,
+.update-profile-card .form-select {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.update-profile-card .form-control:focus,
+.update-profile-card .form-select:focus {
+    border-color: var(--bs-primary); /* Sakura pink on focus */
+    box-shadow: 0 0 0 0.25rem rgba(255, 107, 135, 0.25); /* Sakura pink glow */
+}
+
+/* ===== About Page Layout & Styles ===== */
+.about-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures the page is at least as tall as the screen */
+    padding-top: 75px;
+    background-color: #fffaf5;
+    background-image: repeating-linear-gradient(
+        -45deg,
+        #fff,
+        #fff 20px,
+        rgba(248, 187, 208, 0.15) 20px,
+        rgba(248, 187, 208, 0.15) 40px
+    );
+}
+
+/* This makes the main content area expand and push the footer down */
+.about-page main {
+    flex: 1 0 auto;
+}
+
+.about-card {
+    background-color: var(--bs-light);
+    border-top: 5px solid var(--bs-primary);
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    max-width: 900px;
+}
+
+.about-card h5 {
+    font-family: 'Merriweather', serif;
+    margin-top: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #eee;
+}
+
+.about-card ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.about-card ul li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.about-card ul li i {
+    color: var(--bs-primary);
+    margin-right: 12px;
+    margin-top: 0.2em;
+    flex-shrink: 0;
+}
+
+.php-version {
+    background-color: var(--bs-secondary);
+    color: var(--bs-primary);
+    font-weight: bold;
+    padding: 0.2em 0.6em;
+    border-radius: 5px;
+    font-family: monospace;
+}
+
+/* ===== Verify OTP Page Layout & Styles ===== */
+
+.otp-card {
+    background-color: rgba(255, 255, 255, 0.95); /* Slightly less transparent */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    color: #333; /* Default text color */
+}
+
+.otp-card .form-control {
+    border-radius: 8px;
+    height: 3.5rem; /* Taller input */
+    font-size: 1.5rem; /* Larger font */
+    text-align: center; /* Center OTP digits */
+    letter-spacing: 0.5rem; /* Space out the OTP digits */
+}
+
+.otp-card .btn-primary {
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 1.5rem; /* More space above button */
+    background-image: linear-gradient(to right, #f8bbd0, #ff80a6); /* Soft pink gradient */
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.otp-card .btn-primary:hover {
+    box-shadow: 0 5px 15px rgba(248, 187, 208, 0.4);
+    transform: translateY(-2px);
+}
+
+.otp-icon {
+    font-size: 4rem; /* Large icon */
+    color: var(--bs-primary); /* primary pink color */
+    margin-bottom: 1rem;
+    animation: bounce 2s infinite ease-in-out; /* Subtle animation */
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@media (max-width: 576px) {
+    .brand-logo-text {
+        display: none;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        background-color: var(--bs-primary); /* Use a solid color for the menu background */
+        position: absolute; /* Take it out of normal flow */
+        top: 100%; /* Position right below the navbar */
+        left: 0;
+        right: 0;
+        padding: 10px 0;
+        border-radius: 0 0 15px 15px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        z-index: 1000; /* Ensure it is above other content */
+    }
+
+    /* Center the nav items inside the collapsed menu */
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    /* Add spacing and full width to nav items */
+    .navbar-nav .nav-item {
+        width: 90%;
+        margin: 5px 0 !important; /* Override inline margin utilities */
+    }
+
+    /* 2. Adjust button style inside the collapsed menu */
+    .navbar-nav .btn-light.rounded-pill {
+        width: 100%;
+        text-align: center;
+        /* Keep the light background, but adjust the border/shadow for mobile */
+        border: 2px solid var(--bs-light); 
+        color: var(--bs-dark); /* Dark text on light button */
+    }
+    
+    /* Ensure the brand text is still visible if the logo is too small */
+    .navbar-brand .brand-logo-text {
+        color: var(--bs-light) !important;
+    }
+}

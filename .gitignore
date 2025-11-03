@@ -1,0 +1,5 @@
+# Ignore all vendor dependencies
+/vendor
+
+# Ignore the file with secret credentials
+/.env
