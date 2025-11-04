@@ -2,7 +2,7 @@
     // Database credentials
     $servername = "localhost";
     $username = "root";
-    $password = "Miyuki404";
+    $password = "";
     $dbname = "RootFlower";
 
     try {
