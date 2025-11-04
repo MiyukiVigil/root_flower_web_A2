@@ -2,7 +2,7 @@
     $host = 'localhost';
     $dbname = 'RootFlower';
     $username = 'root';
-    $password = 'Miyuki404';
+    $password = '';
 
     try {
         $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
