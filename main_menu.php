@@ -1,18 +1,18 @@
-<?php 
+<?php
     session_start();
 
-    if (!isset($_SESSION['user'])) {
+    // Check if logged in and user type is 'user'
+    if (!isset($_SESSION['user_email']) || $_SESSION['user_type'] !== 'user') {
         header("Location: login.php");
         exit;
     }
 
-    // Tells the browser and any proxies not to cache the page.
+    // Disable caching
     header("Cache-Control: no-cache, no-store, must-revalidate");
-    // For older HTTP/1.0 clients.
     header("Pragma: no-cache");
-    // For proxies and old browsers, sets the expiration date to the past.
     header("Expires: 0");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -95,7 +95,7 @@
                                     <i class="bi bi-camera fs-1 text-primary mb-3"></i>
                                     <h5 class="card-title">Flower Name</h5>
                                     <p class="card-text">Identify a flower type by uploading a photo.</p>
-                                    <a href="#" class="btn btn-secondary mt-auto disabled">Coming Soon</a>
+                                    <a href="flower.php" class="btn btn-primary mt-auto">Contribute</a>
                                 </div>
                             </div>
                         </div>

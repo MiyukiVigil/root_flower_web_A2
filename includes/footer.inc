@@ -12,7 +12,8 @@ echo <<<FOOTER
       <a href="main_menu.php">Main Menu</a><br>
       <a href="products.php">Products</a><br>
       <a href="workshops.php">Workshops</a><br>
-      <a href="studentworks.php">Student Works</a>
+      <a href="studentworks.php">Student Works</a><br>
+      <a href="flower.php">Flower Name</a>
     </div>
     <div class="footer-section">
       <h6>Find Us</h6>

@@ -25,7 +25,7 @@ echo <<<NAVBAR
                 <li class="nav-item"><a class="nav-link <?= (\$currentPage == 'products.php') ? 'active' : '' ?>" href="products.php">Products</a></li>
                 <li class="nav-item"><a class="nav-link <?= (\$currentPage == 'workshops.php') ? 'active' : '' ?>" href="workshops.php">Workshops</a></li>
                 <li class="nav-item"><a class="nav-link <?= (\$currentPage == 'studentworks.php') ? 'active' : '' ?>" href="studentworks.php">Student Works</a></li>
-                <li class="nav-item"><a class="nav-link disabled" href="#">Flower Name</a></li>
+                <li class="nav-item"><a class="nav-link <?= (\$currentPage == 'flower.php') ? 'active' : ''" href="flower.php">Flower Name</a></li>
                 
                 <li class="nav-item">$authButton</li>
             </ul>

@@ -1,61 +1,44 @@
 <?php
-    session_start();
+session_start();
+require_once 'connection.php'; // Make sure $conn is your PDO connection
 
-    // If the user isn't logged in, redirect them.
-    if (!isset($_SESSION['user'])) {
-        header("Location: login.php");
-        exit;
-    }
+// Access control: Only logged-in users of type 'user'
+if (!isset($_SESSION['user_email']) || ($_SESSION['user_type'] ?? '') !== 'user') {
+    echo '<div class="text-center mt-5">';
+    echo '<h2>Access Denied</h2>';
+    echo '<p>You must be logged in as a user to register for a workshop. <a href="login.php">Login here</a>.</p>';
+    echo '</div>';
+    exit;
+}
 
-    // Tells the browser and any proxies not to cache the page.
-    header("Cache-Control: no-cache, no-store, must-revalidate");
-    // For older HTTP/1.0 clients.
-    header("Pragma: no-cache");
-    // For proxies and old browsers, sets the expiration date to the past.
-    header("Expires: 0");
+$errors = [];
+$old = [];
 
-    // --- Pre-fill user data ---
-    $users_file = __DIR__ . '/../../data/User/user.txt';
-    $current_user_data = null;
-    $first_name = '';
-    $last_name = '';
-    $email = $_SESSION['user']; // The email is the session key
+// --- Pre-fill user data from database ---
+$current_email = $_SESSION['user_email'];
+$current_user_data = [];
 
-    function parse_user_line($line) {
-        $user_data = [];
-        $parts = explode('|', $line);
-        foreach ($parts as $part) {
-            list($key, $value) = explode(':', $part, 2);
-            $user_data[trim($key)] = $value;
-        }
-        return $user_data;
-    }
+$stmt = $conn->prepare("SELECT first_name, last_name, email FROM user_table WHERE email = ?");
+$stmt->execute([$current_email]);
+$current_user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (file_exists($users_file)) {
-        $lines = file($users_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        foreach ($lines as $line) {
-            $user_data = parse_user_line($line);
-            if (isset($user_data['Email']) && $user_data['Email'] === $email) {
-                $first_name = $user_data['First Name'] ?? '';
-                $last_name = $user_data['Last Name'] ?? '';
-                break;
-            }
-        }
-    }
-    // --- End of pre-fill logic ---
+$first_name = $current_user_data['first_name'] ?? '';
+$last_name = $current_user_data['last_name'] ?? '';
+$email = $current_user_data['email'] ?? '';
 
-    // --- Pre-fill workshop title from URL parameter ---
-    $workshop_title = '';
-    if (isset($_GET['title'])) {
-        // Sanitize the title received from the URL
-        $workshop_title = htmlspecialchars(urldecode($_GET['title']));
-    }
-    // --- End of title pre-fill ---
+// --- Pre-fill workshop title from URL parameter ---
+$workshop_title = isset($_GET['title']) ? htmlspecialchars(urldecode($_GET['title'])) : '';
 
-    // Retrieve errors and old input from session if they exist
-    $errors = $_SESSION['errors'] ?? [];
+// --- Check for errors or old input in session ---
+if (isset($_SESSION['errors'])) {
+    $errors = $_SESSION['errors'];
     $old = $_SESSION['old'] ?? [];
-    unset($_SESSION['errors'], $_SESSION['old']); // Clear them after use
+    unset($_SESSION['errors'], $_SESSION['old']);
+}
+if (isset($_SESSION['success_message'])) {
+    $success_message = $_SESSION['success_message'];
+    unset($_SESSION['success_message']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,11 +67,10 @@
                         <div class="card-body p-4 p-md-5">
                             <h2 class="text-center mb-4">🌸 Register for a Workshop</h2>
                             
-                            <?php if (isset($_SESSION['success_message'])): ?>
+                            <?php if (!empty($success_message)): ?>
                                 <div class="alert alert-success text-center">
-                                    <?= $_SESSION['success_message'] ?>
+                                    <?= htmlspecialchars($success_message) ?>
                                 </div>
-                                <?php unset($_SESSION['success_message']); ?>
                             <?php endif; ?>
 
                             <form method="POST" action="process_workshop_reg.php" novalidate>

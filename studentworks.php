@@ -1,25 +1,18 @@
 <?php
-    session_start();
-    
-    // Read the data from our text file database
-    $works_file = __DIR__ . '/data/rootflower.txt';
-    $student_works = [];
-    if (file_exists($works_file)) {
-        $lines = file($works_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        foreach ($lines as $line) {
-            // Explode the line into parts
-            $parts = explode('|', $line, 5); // Limit to 5 parts
-            if (count($parts) === 5) {
-                $student_works[] = [
-                    'id' => $parts[0],
-                    'name' => $parts[1],
-                    'workshop' => $parts[2],
-                    'image' => $parts[3],
-                    'desc' => $parts[4]
-                ];
-            }
-        }
-    }
+session_start();
+
+// Include database connection
+require_once 'connection.php';
+
+// Fetch student works from database
+$student_works = [];
+try {
+    $stmt = $conn->query("SELECT id, first_name, last_name, workshop_title, workshop_image, description FROM studentwork_table ORDER BY id ASC");
+    $student_works = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    // Optional: handle error
+    echo "Error fetching student works: " . $e->getMessage();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,10 +50,10 @@
                     <?php foreach ($student_works as $work): ?>
                         <div class="col-lg-4 col-md-6">
                             <a href="studentwork_detail.php?id=<?= htmlspecialchars($work['id']) ?>" class="gallery-card">
-                                <img src="./images/student_works/<?= htmlspecialchars($work['image']) ?>" alt="Work by <?= htmlspecialchars($work['name']) ?>">
+                                <img src="./images/student_works/<?= htmlspecialchars($work['workshop_image']) ?>" alt="Work by <?= htmlspecialchars($work['first_name'] . ' ' . $work['last_name']) ?>">
                                 <div class="gallery-card-overlay">
-                                    <h5 class="gallery-card-title"><?= htmlspecialchars($work['name']) ?></h5>
-                                    <p class="gallery-card-text">from "<?= htmlspecialchars($work['workshop']) ?>"</p>
+                                    <h5 class="gallery-card-title"><?= htmlspecialchars($work['first_name'] . ' ' . $work['last_name']) ?></h5>
+                                    <p class="gallery-card-text">from "<?= htmlspecialchars($work['workshop_title']) ?>"</p>
                                 </div>
                             </a>
                         </div>

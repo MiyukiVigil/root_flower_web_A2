@@ -1,62 +1,49 @@
-<?php 
+<?php
     session_start();
+    require 'connection.php';
 
     $errors = [];
     $email = "";
     $password = "";
 
-    // Check if the user is already logged in by seeing if the 'user' session variable exists
-    if (isset($_SESSION['user'])) {
-        // If they are logged in, redirect them to the main menu page
+    // Already logged in? Redirect to main menu
+    if (isset($_SESSION['user_email'])) {
         header("Location: main_menu.php");
-        exit; // IMPORTANT: Stop the script from running further
+        exit;
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $email = trim($_POST['email'] ?? '');
         $password = $_POST['password'] ?? '';
 
-        $file = __DIR__ . "/../../data/User/user.txt";
-
-        $found = false;
-
-        if (file_exists($file)) {
-            $users = file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-            foreach ($users as $user) {
-                $parts = explode("|", $user);
-                $savedEmail = "";
-                $savedHash = "";
-
-                foreach ($parts as $field) {
-                    if (strpos($field, "Email:") === 0) {
-                        $savedEmail = substr($field, 6);
-                    }
-                    if (strpos($field, "Password:") === 0) {
-                        $savedHash = substr($field, 9);
-                    }
-                }
-
-                // Check if email matches
-                if (strcasecmp($savedEmail, $email) === 0) {
-                    // Verify password against hash
-                    if (password_verify($password, $savedHash)) {
-                        $found = true;
-                        $_SESSION['user'] = $savedEmail; 
-                        break;
-                    }
-                }
-            }
-        }
-
-        if ($found) {
-            // ✅ Successful login → redirect
-            header("Location: main_menu.php");
-            exit;
+        if (empty($email) || empty($password)) {
+            $errors['login'] = "Please fill in both fields.";
         } else {
-            $errors['login'] = "Invalid email or password.";
+            // Fetch account info from DB
+            $stmt = $conn->prepare("SELECT * FROM account_table WHERE email = ?");
+            $stmt->execute([$email]);
+            $account = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($account && password_verify($password, $account['password'])) {
+                // login success
+                $_SESSION['user_email'] = $account['email'];
+                $_SESSION['user_type'] = $account['type'];
+
+                // Redirect based on type
+                if ($account['type'] === 'admin') {
+                    header("Location: main_menu_admin.php");
+                } else {
+                    header("Location: main_menu.php");
+                }
+                exit;
+            } else {
+                $errors['login'] = "Invalid email or password.";
+            }
+
         }
     }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>

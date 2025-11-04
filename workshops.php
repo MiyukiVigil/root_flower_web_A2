@@ -2,7 +2,7 @@
     session_start();
 
     // Page is for logged-in users only
-    if (!isset($_SESSION['user'])) {
+    if (!isset($_SESSION['user_email']) || ($_SESSION['user_type'] ?? '') !== 'user') {
         header("Location: login.php");
         exit;
     }
