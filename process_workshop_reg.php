@@ -62,7 +62,7 @@ try {
         ':date'          => $date,
         ':time'          => $time,
         ':contact_number'=> $contact_number,
-        ':status'        => 'pending' // UPDATED: Set default status to 'pending'
+        ':status'        => 'pending'
     ]);
 
     $_SESSION['success_message'] = "Thank you, " . htmlspecialchars($first_name) . "! Your registration is now pending approval.";
