@@ -1,18 +1,18 @@
-<?php 
+<?php
     session_start();
 
-    if (!isset($_SESSION['user'])) {
+    // Check if logged in and user type is 'user'
+    if (!isset($_SESSION['user_email']) || $_SESSION['user_type'] !== 'user') {
         header("Location: login.php");
         exit;
     }
 
-    // Tells the browser and any proxies not to cache the page.
+    // Disable caching
     header("Cache-Control: no-cache, no-store, must-revalidate");
-    // For older HTTP/1.0 clients.
     header("Pragma: no-cache");
-    // For proxies and old browsers, sets the expiration date to the past.
     header("Expires: 0");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -40,8 +40,19 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarRoot">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="btn btn-light rounded-pill ms-lg-3 px-3 py-2" href="index.php"><i class="bi bi-house"></i></a></li>
-                            <li class="nav-item"><a class="btn btn-light rounded-pill ms-lg-3 px-3 py-2" href="update_profile.php"><i class="bi bi-person-circle"></i></a></li>
+                            <li class="nav-item"><a class="btn btn-light rounded-pill ms-lg-3 px-3 py-2" href="index.php" title="Home"><i class="bi bi-house"></i></a></li>
+                            <li class="nav-item"><a class="btn btn-light rounded-pill ms-lg-3 px-3 py-2" href="update_profile.php" title="Profile"><i class="bi bi-person-circle"></i></a></li>
+                            
+                            <?php 
+                            // Check if the user is an admin impersonating a user
+                            if (isset($_SESSION['original_user_type']) && $_SESSION['original_user_type'] === 'admin'): 
+                            ?>
+                                <li class="nav-item">
+                                    <a href="stop_impersonation.php" class="btn btn-light rounded-pill ms-lg-3 px-3 py-2" role="button" title="Return to Admin">
+                                        <i class="bi bi-shield-lock"> Return to Admin</i>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
                             <li class="nav-item"><a class="btn btn-light rounded-pill ms-lg-3 px-3 py-2" href="logout.php">Logout</a></li>
                         </ul>
                     </div>
@@ -95,7 +106,7 @@
                                     <i class="bi bi-camera fs-1 text-primary mb-3"></i>
                                     <h5 class="card-title">Flower Name</h5>
                                     <p class="card-text">Identify a flower type by uploading a photo.</p>
-                                    <a href="#" class="btn btn-secondary mt-auto disabled">Coming Soon</a>
+                                    <a href="flower.php" class="btn btn-primary mt-auto">Contribute</a>
                                 </div>
                             </div>
                         </div>
