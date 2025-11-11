@@ -61,6 +61,12 @@ $page_title = "Admin Dashboard";
                         </li>
                         
                         <li class="nav-item">
+                            <a href="http://localhost/phpmyadmin" class="btn btn-light rounded-pill ms-lg-3 px-3 py-2" role="button" title="Database Management">
+                                <i class="fas fa-database me-1"></i>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="start_impersonation.php" class="btn btn-light rounded-pill ms-lg-3 px-3 py-2" role="button" title="View as User">
                                 <i class="fas fa-user-ninja me-1"></i> View Website as User
                             </a>

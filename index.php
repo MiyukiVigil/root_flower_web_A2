@@ -33,9 +33,13 @@
                 <h1 class="display-3 fw-bold">🌸 Welcome to Root Flowers</h1>
                 <p class="lead">Bringing joy through bouquets & floral workshops in Kuching</p>
                 <div class="mt-4">
-                    <a href="main_menu.php" class="btn btn-primary btn-lg m-2"><i class="bi bi-grid-3x3-gap-fill me-2"></i>Main Menu</a>
+                    <?php if (isset($_SESSION['user_email']) && $_SESSION['user_type'] === 'admin'): ?>
+                        <a href="main_menu_admin.php" class="btn btn-warning btn-lg m-2"><i class="bi bi-shield-lock-fill me-2"></i>Admin Dashboard</a>
+                    <?php elseif (isset($_SESSION['user_email']) && $_SESSION['user_type'] === 'user'): ?>
+                        <a href="main_menu.php" class="btn btn-success btn-lg m-2"><i class="bi bi-house-fill me-2"></i>Main Menu</a>
+                    <?php endif; ?>
 
-                    <?php if (isset($_SESSION['user'])): ?>
+                    <?php if (isset($_SESSION['user_email'])): ?>
                         
                         <a href="logout.php" class="btn btn-danger btn-lg m-2"><i class="bi bi-box-arrow-right me-2"></i>Logout</a>
                         

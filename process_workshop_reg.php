@@ -47,7 +47,6 @@ if (!empty($workshop_datetime)) {
 
 // --- Insert into database ---
 try {
-    // UPDATED SQL: Added the 'status' column
     $sql = "INSERT INTO workshop_table 
             (email, first_name, last_name, workshop_title, date, time, contact_number, status) 
             VALUES 
@@ -62,7 +61,7 @@ try {
         ':date'          => $date,
         ':time'          => $time,
         ':contact_number'=> $contact_number,
-        ':status'        => 'pending'
+        ':status'        => 'pending' // UPDATED: Set default status to 'pending'
     ]);
 
     $_SESSION['success_message'] = "Thank you, " . htmlspecialchars($first_name) . "! Your registration is now pending approval.";

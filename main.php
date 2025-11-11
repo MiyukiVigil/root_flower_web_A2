@@ -120,7 +120,6 @@
                 ('alice@gmail.com', 'Alice', 'Tan', '2025-12-10', '10:00:00', '0123456789'),
                 ('bob@gmail.com', 'Bob', 'Lim', '2025-12-10', '10:00:00', '0139876543'),
                 ('carol@gmail.com', 'Carol', 'Lee', '2025-12-11', '14:00:00', '0162233445'),
-                ('admin@swin.edu.my', 'Admin', 'User', '2025-12-09', '09:00:00', '0191122334')
             ");
             echo "Dummy data inserted into 'workshop_table'.<br>";
         }

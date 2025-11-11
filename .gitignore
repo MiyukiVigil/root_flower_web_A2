@@ -3,3 +3,6 @@
 
 # Ignore the file with secret credentials
 /.env
+
+# Ignore Google Cloud service account key
+gcloud-service-key.json

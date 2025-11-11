@@ -1391,6 +1391,101 @@ footer p {
     border-top: none;
 }
 
+/* ========================================================================= */
+/* --- FLOWER PAGE (Task 3.4 & 5.1 Merged) --- */
+/* ========================================================================= */
+
+/* 1. Add the themed, repeating background */
+.contribute-flower-page {
+    padding-top: 75px;
+    min-height: 100vh;
+    background-color: #fffaf5; 
+    background-image: repeating-linear-gradient(
+        -45deg,
+        #fff,
+        #fff 20px,
+        rgba(248, 187, 208, 0.15) 20px,
+        rgba(248, 187, 208, 0.15) 40px
+    );
+}
+
+/* 2. Styles for the new "form-card" class */
+.form-card {
+    background-color: var(--bs-light); /* Peachy cream */
+    border-top: 5px solid var(--bs-primary); /* Sakura pink */
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    padding: 2.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* 3. Title for the cards */
+.form-card-title {
+    font-family: 'Merriweather', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--bs-dark);
+    display: block;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* 4. Style form elements inside the cards */
+.form-card .form-label {
+    font-weight: 600;
+    color: var(--bs-dark);
+}
+
+.form-card .form-control {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-card .form-control:focus {
+    border-color: var(--bs-primary); 
+    box-shadow: 0 0 0 0.25rem rgba(255, 107, 135, 0.25); 
+}
+
+/* 5. Style the file input buttons */
+.form-card input[type="file"]::file-selector-button {
+    background-color: var(--bs-primary); 
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.form-card input[type="file"]:hover::file-selector-button {
+    opacity: 0.9;
+}
+
+.form-card input[type="file"].form-control {
+    padding: 5px; /* Better vertical alignment */
+}
+
+/* 6. Make the submit button bigger */
+.form-card .btn-primary {
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* 7. Style for the identification result card */
+.result-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
        
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
