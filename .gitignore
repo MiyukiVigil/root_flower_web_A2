@@ -3,3 +3,9 @@
 
 # Ignore the file with secret credentials
 /.env
+
+# Ignore Google Cloud service account key
+gcloud-service-key.json
+
+# Ignore specific service account key file
+workshop-scheduler-478503-4063b65e5ffc.json

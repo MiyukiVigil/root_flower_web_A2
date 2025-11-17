@@ -1,7 +1,7 @@
 <?php 
     session_start();
 
-    if (!isset($_SESSION['user'])) {
+    if (!isset($_SESSION['user_email']) || ($_SESSION['user_type'] ?? '') !== 'user') {
         header("Location: login.php");
         exit;
     }

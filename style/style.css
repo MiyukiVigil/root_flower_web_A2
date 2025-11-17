@@ -2,7 +2,7 @@
 filename: [RootFlowers Style] 
 author: [Ivan Liang Jin Ngu]
 created: [8/09/2025]
-last modified: 10/10/2025]
+last modified: 10/11/2025]
 description: [Styles for every single php files]
 */
 
@@ -175,8 +175,8 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0,0,0,0.4); /* dark tint */
     z-index: 0;
+    background: rgba(0, 0, 0, 0.4); /* dark overlay for better text contrast */
 }
 
 .hero-content {
@@ -975,59 +975,10 @@ footer p {
   color: #555;
 }
 
-/* ===== UPDATE PROFILE PAGE ===== */
+/* ===== UPDATE PROFILE PAGE STYLES - REVISED FOR LAYOUT BALANCE ===== */
 .update-profile-page {
     padding-top: 75px;
-    background-color: #fffaf5;
-    background-image: repeating-linear-gradient(
-        -45deg,
-        #fff,
-        #fff 20px,
-        rgba(248, 187, 208, 0.15) 20px,
-        rgba(248, 187, 208, 0.15) 40px
-    );
-    animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.update-profile-card {
-    background-color: #fff;
-    border-top: 5px solid var(--bs-primary);
-    max-width: 900px; /* Controls the max width of the card */
-}
-
-.update-profile-page .form-control,
-.update-profile-page .form-select {
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    border: 1px solid #ddd;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.update-profile-page .form-control:focus,
-.update-profile-page .form-select:focus {
-    border-color: var(--bs-primary);
-    box-shadow: 0 0 0 0.25rem rgba(255, 107, 135, 0.25);
-}
-
-.update-profile-page .btn-secondary {
-    background-color: #ccc;
-    border-color: #ccc;
-    color: #333;
-}
-
-.update-profile-page .btn-secondary:hover {
-    background-color: #bbb;
-    border-color: #bbb;
-}
-.gallery-card-text {
-    color: rgba(255,255,255,0.8);
-}
-
-/* ===== UPDATE PROFILE PAGE STYLES ===== */
-.update-profile-page {
-    padding-top: 75px;
-    background-color: #fffaf5; /* Light peachy background */
-    /* Adds the subtle repeating background pattern */
+    background-color: #fffaf5; 
     background-image: repeating-linear-gradient(
         -45deg,
         #fff,
@@ -1039,7 +990,7 @@ footer p {
 
 .update-profile-card {
     background-color: var(--bs-light);
-    border-top: 5px solid var(--bs-primary); /* Sakura pink top accent */
+    border-top: 5px solid var(--bs-primary); 
     animation: fadeInUp 0.8s ease-out forwards;
 }
 
@@ -1053,21 +1004,27 @@ footer p {
 }
 
 .update-profile-card .profile-image {
-  width: 180px;  /* Slightly smaller for better balance */
-  height: 180px;
+  width: 80%;
+  height: 80%;
   object-fit: cover;
   border-radius: 50%;
-  border: 6px solid var(--bs-secondary); /* Pastel pink border */
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border: 6px solid #f9dae1; 
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .update-profile-card .profile-image:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  transform: scale(1.03);
 }
 
-/* Themed Form Styles */
+/* --- Layout and Alignment Fixes --- */
+
+.update-profile-card .row.g-5 {
+    --bs-gutter-x: 3rem; 
+    --bs-gutter-y: 2rem;
+}
+
+/* Themed Form Styles - Including File Inputs */
 .update-profile-card .form-control,
 .update-profile-card .form-select {
     border: 1px solid #ddd;
@@ -1078,8 +1035,52 @@ footer p {
 
 .update-profile-card .form-control:focus,
 .update-profile-card .form-select:focus {
-    border-color: var(--bs-primary); /* Sakura pink on focus */
-    box-shadow: 0 0 0 0.25rem rgba(255, 107, 135, 0.25); /* Sakura pink glow */
+    border-color: var(--bs-primary); 
+    box-shadow: 0 0 0 0.25rem rgba(255, 107, 135, 0.25); 
+}
+
+/* --- File Input Button Styling FIX --- */
+
+/* 1. Style the default button (required by Bootstrap 5) */
+.update-profile-card input[type="file"]::file-selector-button {
+    /* Set the button to your theme's primary color */
+    background-color: var(--bs-primary); 
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.update-profile-card input[type="file"]:hover::file-selector-button {
+    /* Slightly darker on hover for feedback */
+    opacity: 0.9;
+}
+
+/* 2. Target the form control class for clean padding/sizing */
+.update-profile-card input[type="file"].form-control {
+    padding-top: 5px; /* Adjust vertical centering of text/button */
+    padding-bottom: 5px;
+}
+
+/* 3. Ensure the 'Current resume' link is themed */
+.update-profile-card .small a {
+    text-decoration: none;
+    font-weight: 500;
+    color: var(--bs-primary);
+}
+
+/* Button Styling */
+.update-profile-card .btn-primary {
+    font-weight: 600;
+}
+
+.update-profile-card .btn-secondary {
+    background-color: #f8f9fa; 
+    border-color: #ddd;
+    color: #6c757d;
 }
 
 /* ===== About Page Layout & Styles ===== */
@@ -1188,6 +1189,309 @@ footer p {
     animation: bounce 2s infinite ease-in-out; /* Subtle animation */
 }
 
+/* ========================================================================= */
+/* --- ADMIN PAGE STYLES (COS30020 Assignment 2) --- */
+/* ========================================================================= */
+.admin-navbar {
+    /* Deep Navy/Charcoal */
+    background-color: #2c3e50 !important; 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    /* Border now uses a subtle white/light color instead of pink */
+    border-bottom: 3px solid rgba(255, 255, 255, 0.1); 
+}
+
+/* Ensure admin nav links are bright white/light color against the dark navbar */
+.admin-navbar .nav-link,
+.admin-navbar .navbar-brand {
+    color: #ecf0f1 !important; /* Off-white color */
+    transition: color 0.3s ease;
+}
+
+/* **LOGOUT BUTTON ADJUSTMENT ** */
+.admin-navbar .btn-light.rounded-pill {
+    background-color: var(--bs-light); 
+    color: #2c3e50; 
+    font-weight: 600;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-dashboard-page {
+    min-height: 100vh;
+    background-color: var(--bs-light); 
+    background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.5), 
+        rgba(255, 255, 255, 0.5) 20px,
+        rgba(44, 44, 44, 0.05) 20px, 
+        rgba(44, 44, 44, 0.05) 40px
+    ) !important; /* Use !important to force the override */
+    background-color: var(--bs-light) !important;
+}
+
+.admin-dashboard-page:hover {
+    background-position: 0% 50%;
+}
+
+.admin-hero-section {
+    background-image: none !important; /* Remove any background image */
+}
+
+.admin-card {
+    background-color: #fff; /* Clean white card */
+    border: 1px solid #ddd;
+    /* Top border uses Dark Navy/Charcoal */
+    border-top: 5px solid #2c3e50; 
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+}
+
+.admin-card:hover {
+    transform: translateY(-8px); 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); 
+    /* On hover, border color shifts to a subtle Dark Navy/Charcoal */
+    border-color: #2c3e50; 
+    border-top: 5px solid #2c3e50; 
+}
+
+.admin-card .card-body i {
+    /* Icons are now Dark Navy/Charcoal */
+    color: #2c3e50; 
+    transition: color 0.3s ease;
+}
+
+.admin-card:hover .card-body i {
+    /* Icons change to a dark gray on hover to suggest focus */
+    color: #6c7a89; 
+}
+
+/* Ensure the text is dark, overriding any pink theme text */
+.admin-card .card-title {
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--bs-dark);
+}
+
+/* Custom style for the date/time display button */
+#live-datetime-btn {
+    background-color: #2c3e50; /* Dark navy background */
+    color: var(--bs-light); /* Peachy cream text */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    min-width: 180px; /* Ensure button doesn't jump when time updates */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+#live-datetime-btn:hover {
+    background-color: #34495e; /* Slightly lighter navy on hover */
+    color: #fff;
+}
+        
+/* Style for the calendar popover content */
+.admin-calendar-popover .popover-header {
+    background-color: #2c3e50;
+    color: #fff;
+    font-weight: bold;
+}
+
+.admin-calendar-popover {
+    min-width: 500px;
+    min-height: 250px;
+}
+
+.admin-calendar-popover .popover-body {
+    background-color: var(--bs-light);
+    color: var(--bs-dark);
+    padding: 5px;
+    padding: 0;
+}
+
+.admin-calendar-popover iframe {
+        border: none;
+        width: 100%;
+        height: 250px;
+}
+
+.admin_icon {
+    color: #2c3e50 !important; /* Dark Navy/Charcoal */
+}
+
+/* Custom Admin Table Style */
+.profile-thumb {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+}
+
+.admin-user-manager-page {
+    padding-top: 75px;
+    min-height: 100vh;
+    background-color: var(--bs-light); 
+    background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.5), 
+        rgba(255, 255, 255, 0.5) 20px,
+        rgba(44, 44, 44, 0.05) 20px, 
+        rgba(44, 44, 44, 0.05) 40px
+    ) !important; /* Use !important to force the override */
+    background-color: var(--bs-light) !important;
+}
+
+.admin-user-manager-page .hero {
+    height: auto; /* Overrides height: 100vh */
+    min-height: auto;
+}
+
+.admin-user-manager-page .hero-content {
+    padding-bottom: 5rem; /* Adds space at the bottom of the page */
+}
+
+.admin-user-manager-page .hero-content {
+    padding-bottom: 0;
+}
+
+/* 2. CARD OVERLAP: Pulls the content card up */
+.admin-card-container {
+    position: relative;
+    z-index: 10;
+}
+
+/* 3. TABLE STYLES: Makes the table match the admin theme */
+.admin-user-table {
+    margin-bottom: 0; 
+}
+
+.admin-user-table thead {
+    background-color: #f8f9fa; 
+}
+
+.admin-user-table thead th {
+    color: var(--bs-dark); 
+    font-weight: 600; 
+    border-bottom: 2px solid #dee2e6;
+    padding: 1rem;
+}
+
+.admin-user-table tbody tr:hover {
+    background-color: var(--bs-light) !important; 
+}
+
+.admin-user-table td {
+    color: #555;
+    padding: 0.8rem 1rem;
+    border-top: 1px solid #f0f0f0; 
+}
+
+.admin-user-table tbody tr:first-child td {
+    border-top: none;
+}
+
+/* ========================================================================= */
+/* --- FLOWER PAGE (Task 3.4 & 5.1 Merged) --- */
+/* ========================================================================= */
+
+/* 1. Add the themed, repeating background */
+.contribute-flower-page {
+    padding-top: 75px;
+    min-height: 100vh;
+    background-color: #fffaf5; 
+    background-image: repeating-linear-gradient(
+        -45deg,
+        #fff,
+        #fff 20px,
+        rgba(248, 187, 208, 0.15) 20px,
+        rgba(248, 187, 208, 0.15) 40px
+    );
+}
+
+/* 2. Styles for the new "form-card" class */
+.form-card {
+    background-color: var(--bs-light); /* Peachy cream */
+    border-top: 5px solid var(--bs-primary); /* Sakura pink */
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    padding: 2.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* 3. Title for the cards */
+.form-card-title {
+    font-family: 'Merriweather', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--bs-dark);
+    display: block;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* 4. Style form elements inside the cards */
+.form-card .form-label {
+    font-weight: 600;
+    color: var(--bs-dark);
+}
+
+.form-card .form-control {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 12px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-card .form-control:focus {
+    border-color: var(--bs-primary); 
+    box-shadow: 0 0 0 0.25rem rgba(255, 107, 135, 0.25); 
+}
+
+/* 5. Style the file input buttons */
+.form-card input[type="file"]::file-selector-button {
+    background-color: var(--bs-primary); 
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    cursor: pointer;
+}
+
+.form-card input[type="file"]:hover::file-selector-button {
+    opacity: 0.9;
+}
+
+.form-card input[type="file"].form-control {
+    padding: 5px; /* Better vertical alignment */
+}
+
+/* 6. Make the submit button bigger */
+.form-card .btn-primary {
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+}
+
+/* 7. Style for the identification result card */
+.result-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
+       
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }

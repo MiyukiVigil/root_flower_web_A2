@@ -1,61 +1,44 @@
 <?php
-    session_start();
+session_start();
+require_once 'connection.php'; // Make sure $conn is your PDO connection
 
-    // If the user isn't logged in, redirect them.
-    if (!isset($_SESSION['user'])) {
-        header("Location: login.php");
-        exit;
-    }
+// Access control: Only logged-in users of type 'user'
+if (!isset($_SESSION['user_email']) || ($_SESSION['user_type'] ?? '') !== 'user') {
+    echo '<div class="text-center mt-5">';
+    echo '<h2>Access Denied</h2>';
+    echo '<p>You must be logged in as a user to register for a workshop. <a href="login.php">Login here</a>.</p>';
+    echo '</div>';
+    exit;
+}
 
-    // Tells the browser and any proxies not to cache the page.
-    header("Cache-Control: no-cache, no-store, must-revalidate");
-    // For older HTTP/1.0 clients.
-    header("Pragma: no-cache");
-    // For proxies and old browsers, sets the expiration date to the past.
-    header("Expires: 0");
+$errors = [];
+$old = [];
 
-    // --- Pre-fill user data ---
-    $users_file = __DIR__ . '/../../data/User/user.txt';
-    $current_user_data = null;
-    $first_name = '';
-    $last_name = '';
-    $email = $_SESSION['user']; // The email is the session key
+// --- Pre-fill user data from database ---
+$current_email = $_SESSION['user_email'];
+$current_user_data = [];
 
-    function parse_user_line($line) {
-        $user_data = [];
-        $parts = explode('|', $line);
-        foreach ($parts as $part) {
-            list($key, $value) = explode(':', $part, 2);
-            $user_data[trim($key)] = $value;
-        }
-        return $user_data;
-    }
+$stmt = $conn->prepare("SELECT first_name, last_name, email FROM user_table WHERE email = ?");
+$stmt->execute([$current_email]);
+$current_user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (file_exists($users_file)) {
-        $lines = file($users_file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        foreach ($lines as $line) {
-            $user_data = parse_user_line($line);
-            if (isset($user_data['Email']) && $user_data['Email'] === $email) {
-                $first_name = $user_data['First Name'] ?? '';
-                $last_name = $user_data['Last Name'] ?? '';
-                break;
-            }
-        }
-    }
-    // --- End of pre-fill logic ---
+$first_name = $current_user_data['first_name'] ?? '';
+$last_name = $current_user_data['last_name'] ?? '';
+$email = $current_user_data['email'] ?? '';
 
-    // --- Pre-fill workshop title from URL parameter ---
-    $workshop_title = '';
-    if (isset($_GET['title'])) {
-        // Sanitize the title received from the URL
-        $workshop_title = htmlspecialchars(urldecode($_GET['title']));
-    }
-    // --- End of title pre-fill ---
+// --- Pre-fill workshop title from URL parameter ---
+$workshop_title = isset($_GET['title']) ? htmlspecialchars(urldecode($_GET['title'])) : '';
 
-    // Retrieve errors and old input from session if they exist
-    $errors = $_SESSION['errors'] ?? [];
+// --- Check for errors or old input in session ---
+if (isset($_SESSION['errors'])) {
+    $errors = $_SESSION['errors'];
     $old = $_SESSION['old'] ?? [];
-    unset($_SESSION['errors'], $_SESSION['old']); // Clear them after use
+    unset($_SESSION['errors'], $_SESSION['old']);
+}
+if (isset($_SESSION['success_message'])) {
+    $success_message = $_SESSION['success_message'];
+    unset($_SESSION['success_message']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,22 +67,27 @@
                         <div class="card-body p-4 p-md-5">
                             <h2 class="text-center mb-4">🌸 Register for a Workshop</h2>
                             
-                            <?php if (isset($_SESSION['success_message'])): ?>
+                            <?php if (!empty($success_message)): ?>
                                 <div class="alert alert-success text-center">
-                                    <?= $_SESSION['success_message'] ?>
+                                    <?= htmlspecialchars($success_message) ?>
                                 </div>
-                                <?php unset($_SESSION['success_message']); ?>
                             <?php endif; ?>
 
-                            <form method="POST" action="process_workshop_reg.php" novalidate>
+                           <form method="POST" action="process_workshop_reg.php" novalidate>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">First Name</label>
-                                        <input type="text" name="first_name" class="form-control" value="<?= htmlspecialchars($old['first_name'] ?? $first_name) ?>" required>
+                                        <input type="text" name="first_name" class="form-control <?= isset($errors['first_name']) ? 'is-invalid' : '' ?>" value="<?= htmlspecialchars($old['first_name'] ?? $first_name) ?>" required>
+                                        <?php if (isset($errors['first_name'])): ?>
+                                            <div class="invalid-feedback d-block"><?= $errors['first_name'] ?></div>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Last Name</label>
-                                        <input type="text" name="last_name" class="form-control" value="<?= htmlspecialchars($old['last_name'] ?? $last_name) ?>" required>
+                                        <input type="text" name="last_name" class="form-control <?= isset($errors['last_name']) ? 'is-invalid' : '' ?>" value="<?= htmlspecialchars($old['last_name'] ?? $last_name) ?>" required>
+                                        <?php if (isset($errors['last_name'])): ?>
+                                            <div class="invalid-feedback d-block"><?= $errors['last_name'] ?></div>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
 
@@ -113,18 +101,31 @@
 
                                 <div class="mb-3">
                                     <label class="form-label">Contact Number</label>
-                                    <input type="text" name="contact_number" class="form-control" value="<?= htmlspecialchars($old['contact_number'] ?? '') ?>" required>
+                                    <input type="text" name="contact_number" class="form-control <?= isset($errors['contact_number']) ? 'is-invalid' : '' ?>" value="<?= htmlspecialchars($old['contact_number'] ?? '') ?>" required>
+                                    <?php if (isset($errors['contact_number'])): ?>
+                                        <div class="invalid-feedback d-block"><?= $errors['contact_number'] ?></div>
+                                    <?php endif; ?>
                                 </div>
                                 
                                 <div class="mb-3">
                                     <label class="form-label">Workshop Title</label>
-                                    <input type="text" name="workshop_title" class="form-control" placeholder="e.g., Beginner's Bouquet Making" value="<?= htmlspecialchars($old['workshop_title'] ?? $workshop_title) ?>" required>
+                                    <input type="text" name="workshop_title" class="form-control <?= isset($errors['workshop_title']) ? 'is-invalid' : '' ?>" placeholder="e.g., Beginner's Bouquet Making" value="<?= htmlspecialchars($old['workshop_title'] ?? $workshop_title) ?>" required>
+                                    <?php if (isset($errors['workshop_title'])): ?>
+                                        <div class="invalid-feedback d-block"><?= $errors['workshop_title'] ?></div>
+                                    <?php endif; ?>
                                 </div>
 
                                 <div class="mb-4">
                                     <label class="form-label">Preferred Date & Time</label>
-                                    <input type="datetime-local" name="workshop_datetime" class="form-control" value="<?= htmlspecialchars($old['workshop_datetime'] ?? '') ?>" required>
+                                    <input type="datetime-local" name="workshop_datetime" class="form-control <?= isset($errors['workshop_datetime']) ? 'is-invalid' : '' ?>" value="<?= htmlspecialchars($old['workshop_datetime'] ?? '') ?>" required>
+                                    <?php if (isset($errors['workshop_datetime'])): ?>
+                                        <div class="invalid-feedback d-block"><?= $errors['workshop_datetime'] ?></div>
+                                    <?php endif; ?>
                                 </div>
+                                
+                                <?php if (isset($errors['database'])): ?>
+                                    <div class="alert alert-danger text-center"><?= $errors['database'] ?></div>
+                                <?php endif; ?>
 
                                 <div class="d-grid mb-3">
                                     <button type="submit" class="btn btn-primary">Register Now</button>
