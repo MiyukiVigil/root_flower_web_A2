@@ -63,7 +63,9 @@
             workshop_title VARCHAR(100) NOT NULL,
             date DATE NULL,
             time TIME NULL,
-            contact_number VARCHAR(15) NULL
+            contact_number VARCHAR(15) NULL,
+            status VARCHAR(20) DEFAULT 'pending',
+            google_calendar_event_id VARCHAR(255) NULL
         )";
         $conn->exec($sql);
         echo "Table 'workshop_table' created.<br>";
@@ -119,7 +121,7 @@
                 INSERT INTO workshop_table (email, first_name, last_name, date, time, contact_number) VALUES
                 ('alice@gmail.com', 'Alice', 'Tan', '2025-12-10', '10:00:00', '0123456789'),
                 ('bob@gmail.com', 'Bob', 'Lim', '2025-12-10', '10:00:00', '0139876543'),
-                ('carol@gmail.com', 'Carol', 'Lee', '2025-12-11', '14:00:00', '0162233445'),
+                ('carol@gmail.com', 'Carol', 'Lee', '2025-12-11', '14:00:00', '0162233445')
             ");
             echo "Dummy data inserted into 'workshop_table'.<br>";
         }
